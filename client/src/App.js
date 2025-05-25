@@ -25,8 +25,13 @@ function App() {
     try {
       setLoading(prev => ({ ...prev, [type]: true }));
 
+      // API endpoint URL'i - production'da Netlify Functions, development'ta localhost
+      const apiUrl = process.env.NODE_ENV === 'production'
+        ? '/api/gemini'
+        : 'http://localhost:5002/api/gemini';
+
       // Backend proxy'ye istek gönder (API anahtarı güvenli bir şekilde backend'de)
-      const response = await fetch('http://localhost:5002/api/gemini', {
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,14 +105,16 @@ function App() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-[#FF7178]">Metin Analizi Raporu</h1>
-            <a
-              href="http://localhost:5002/original"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-[#FF7178] hover:underline"
-            >
-              Orijinal Sürümü Görüntüle →
-            </a>
+            {process.env.NODE_ENV !== 'production' && (
+              <a
+                href="http://localhost:5002/original"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-[#FF7178] hover:underline"
+              >
+                Orijinal Sürümü Görüntüle →
+              </a>
+            )}
           </div>
         </div>
       </header>

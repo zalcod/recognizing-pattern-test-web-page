@@ -105,6 +105,35 @@ Uygulamayı Heroku, Vercel, Netlify veya benzeri platformlara dağıtabilirsiniz
    heroku config:set GEMINI_API_KEY=sizin_api_anahtariniz
    ```
 
+## Netlify Deployment Talimatları
+
+Bu proje, Netlify'da deploy edilmek üzere yapılandırılmıştır. Netlify Functions kullanarak API işlevselliğini korur.
+
+### Deployment Adımları:
+
+1. **Netlify'da Yeni Site Oluştur:**
+   - Netlify hesabınıza giriş yapın
+   - "New site from Git" butonuna tıklayın
+   - GitHub/GitLab/Bitbucket hesabınızı bağlayın ve bu repo'yu seçin
+
+2. **Build Ayarları:**
+   - Build command: `npm run build`
+   - Publish directory: `client/build`
+
+3. **Environment Variables:**
+   - Netlify site ayarlarında "Environment variables" bölümüne gidin
+   - Aşağıdaki değişkeni ekleyin:
+     - Key: `GEMINI_API_KEY`
+     - Value: Gemini API anahtarınız
+
+4. **Deploy:**
+   - "Deploy site" butonuna tıklayın
+
+### Not:
+- Backend Express.js API'si yerine Netlify Functions kullanılmaktadır
+- API endpoint `/api/gemini` otomatik olarak `/.netlify/functions/gemini` fonksiyonuna yönlendirilir
+- Tüm SPA yönlendirmeleri `/*` → `/index.html` şeklinde yapılandırılmıştır
+
 ## 📄 Lisans
 
 Bu proje MIT lisansı altında lisanslanmıştır. 
