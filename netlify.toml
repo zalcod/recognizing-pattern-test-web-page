@@ -1,7 +1,7 @@
 [build]
   command = "CI='' npm run build"
-  publish = "/build"
-  base ="/"
+  publish = "client/build"
+  base = "."
 
 [[redirects]]
   from = "/*"
@@ -15,4 +15,4 @@
   from = "/api/gemini"
   to = "/.netlify/functions/gemini"
   status = 200
-  force = true 
+  force = true
